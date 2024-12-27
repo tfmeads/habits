@@ -2,6 +2,7 @@
 $actives = $actives->sortBy('period');
 $archives = $archives->sortBy('period');
 
+session(['previous-url' => request()->url()]);
 //todo show soft-deleted
 
 ?>

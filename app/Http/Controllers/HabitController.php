@@ -80,7 +80,7 @@ class HabitController extends Controller{
             'period' => request('period')
         ]);
     
-        return redirect('/habits');
+        return redirect(session('previous-url'));;
     }
 
     public function destroy(Habit $habit){
@@ -89,7 +89,7 @@ class HabitController extends Controller{
 
         $habit->delete();
 
-        return redirect('/habits');
+        return redirect(session('previous-url'));;
     }
     
     
