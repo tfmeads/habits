@@ -7,8 +7,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HabitController;
 
 Route::get('/', function () {
-    return view('home');
-});
+    return view('home',
+    [
+        'habits' => Habit::all()
+    ]);
+}
+);
 
 
 Route::get('/habits', [HabitController::class, 'index']);

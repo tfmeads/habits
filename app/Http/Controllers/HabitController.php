@@ -15,7 +15,8 @@ class HabitController extends Controller{
 
         return view('habits.index',
         [
-            'habits' => Habit::all()
+            'actives' => Habit::all(),
+            'archives' => Habit::onlyTrashed()->get()
         ]);
     }
     
