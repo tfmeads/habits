@@ -14,15 +14,7 @@ Route::get('/', function () {
 }
 );
 
-
-Route::get('/habits', [HabitController::class, 'index']);
-Route::get('/habits/create', [HabitController::class, 'create']);
-Route::get('/habits/{habit}', [HabitController::class, 'show']);
-Route::get('/habits/{habit}/edit', [HabitController::class, 'edit']);
-Route::patch('/habits/{habit}', [HabitController::class, 'update']);
-Route::delete('/habits/{habit}', [HabitController::class, 'destroy']);
+Route::resource('habits', HabitController::class);
 
 
-Route::get('/about', function () {
-    return view('about');
-});
+Route::view('/about', 'about');
