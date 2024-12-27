@@ -11,5 +11,4 @@ Manage Habit
 </x-homenav>
 
 <button type="button"><a  href="/habits/{{$habit->id}}/edit">Edit Habit</a></button>
-<button type="button"><a  href="/habits/{{$habit->id}}/delete">Delete Habit</a></button>
 

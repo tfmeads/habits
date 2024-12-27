@@ -1,3 +1,6 @@
+<?
+$id = isset($selected_id) ? $selected_id : '';
+?>
 <x-homenav>
 <x-slot:heading>
 {{ isset($selected_id) ? 'Edit Habit' : 'Track New Habit'}}
@@ -33,6 +36,13 @@
 @enderror
 <br><br>
 <button type="submit">{{ isset($selected_id) ? 'Save Habit' : 'Track Habit'}}</button>
+<button form="delete-form" {{ isset($selected_id) ? '' : 'hidden'}}>Delete Habit</button>
+</form>
+
+
+<form id="delete-form" class="hidden" method="POST" action={{"/habits/$id"}}>
+    @csrf
+    @method('DELETE')
 </form>
 
 {{-- 

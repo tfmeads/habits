@@ -6,9 +6,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('home', [
-        'foo' => 'bar',
-    ]);
+    return view('home');
 });
 
 Route::get('/habits', function () {
@@ -19,7 +17,6 @@ Route::get('/habits', function () {
     ]
 );
 });
-
 
 
 Route::get('/habits/create', function () {
@@ -38,7 +35,7 @@ Route::get('/habits/create', function () {
 Route::post('/habits', function () {
 
     request()->validate([
-        'name' => ['required', 'min:2','max:50','unique:habits'],
+        'name' => ['required', 'min:2','max:50',Rule::unique('habits')->whereNull('deleted_at')],
         'frequency' => ['required','min:1','max:99'],
         'period' => ['required'],
     ]);
@@ -73,7 +70,7 @@ Route::get('/habits/{id}/edit', function ($id) {
 Route::patch('/habits/{id}', function ($id) {
 
     request()->validate([
-        'name' => ['required', 'min:2','max:50',Rule::unique('habits')->ignore($id)],
+        'name' => ['required', 'min:2','max:50',Rule::unique('habits')->ignore($id)->whereNull('deleted_at')],
         'frequency' => ['required','min:1','max:99'],
         'period' => ['required', Rule::in(array_column(Period::cases(), 'value'))],
     ]);
@@ -89,10 +86,11 @@ Route::patch('/habits/{id}', function ($id) {
     return redirect('/habits');
 });
 
-Route::get('/habits/{id}/delete', function ($id) {
+Route::delete('/habits/{id}', function ($id) {
+
+    //TODO authorize...
 
     $habit = Habit::findOrFail($id);
-
     $habit->delete();
 
     return redirect('/habits');
