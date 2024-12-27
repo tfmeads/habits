@@ -1,15 +1,18 @@
 <?
-$id = isset($selected_id) ? $selected_id : '';
+$id =  $habit['id'] == 0 ? '' : $habit['id'];
+$action = "/habits/$id";
+$method = $id ? 'PATCH' : 'POST';
+$submit_label = $id ? 'Save Habit' : 'Track Habit';
 ?>
 <x-homenav>
 <x-slot:heading>
-{{ isset($selected_id) ? 'Edit Habit' : 'Track New Habit'}}
+{{ $id ? 'Edit Habit' : 'Track New Habit'}}
 </x-slot:heading>
 
 <br>
 
-<form method="POST" action={{ isset($selected_id) ? "/habits/$selected_id" : '/habits'}}>
-    <input type="hidden" name="_method" value={{ isset($selected_id) ? 'PATCH' : 'POST'}}>
+<form method="POST" action={{$action}}>
+    <input type="hidden" name="_method" value={{$method}}>
     @csrf
 
     <input type="text" name="name" id="name" max=50 placeholder="New Habit" value="{{$habit['name']}}"></input>   
@@ -35,8 +38,8 @@ $id = isset($selected_id) ? $selected_id : '';
 <p style="color:red"><i >{{$message}}</i></p>
 @enderror
 <br><br>
-<button type="submit">{{ isset($selected_id) ? 'Save Habit' : 'Track Habit'}}</button>
-<button form="delete-form" {{ isset($selected_id) ? '' : 'hidden'}}>Delete Habit</button>
+<button type="submit">{{$submit_label}}</button>
+<button form="delete-form" {{ isset($habit) ? '' : 'hidden'}}>Delete Habit</button>
 </form>
 
 
