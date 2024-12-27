@@ -23,7 +23,7 @@ class HabitFactory extends Factory
         return [
             'name' =>       $name,
             'frequency' =>  fake()->randomDigitNotNull(),
-            'period' =>     fake()->randomElement($array = array ('Day','Week','Month','Year'))
+            'period' =>     fake()->randomElement($array = array (\App\Enums\Period::cases()))
         ];
     }
 }
