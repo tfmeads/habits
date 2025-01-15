@@ -8,20 +8,27 @@ use App\Models\Habit;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class HabitController extends Controller{
 
     public function index(){
-
+        if(Auth::guest()){
+            return redirect('/login');
+        }
+        
         return view('habits.index',
         [
-            'actives' => Habit::all(),
-            'archives' => Habit::onlyTrashed()->get()
+            'actives' => Habit::where('user_id',Auth::user()->id)->get(),
+            'archives' => Habit::where('user_id',Auth::user()->id)->onlyTrashed()->get()
         ]);
     }
     
     public function create(){
+        if(Auth::guest()){
+            return redirect('/login');
+        }
 
         $habit = [
             'id'    => 0,
@@ -36,6 +43,9 @@ class HabitController extends Controller{
     }
     
     public function show(Habit $habit){
+
+        Gate::authorize('edit-habit',$habit);
+
         return view('habits.show',
         [
             'habit' => $habit

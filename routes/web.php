@@ -16,7 +16,7 @@ Route::get('/', function () {
     else{
         return view('home',
         [
-            'habits' => Habit::all()
+            'habits' => Habit::where('user_id',Auth::user()->id)->get(),
         ]);
     }
 }
