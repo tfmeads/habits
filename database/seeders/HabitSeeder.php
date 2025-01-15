@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enums\Period;
 use App\Models\Habit;
 use Illuminate\Database\Seeder;
 
@@ -17,13 +18,13 @@ class HabitSeeder extends Seeder
 
         Habit::factory()->create([
             'name' => 'Brush Teeth',
-            'period' => 'Day',
+            'period' => Period::DAY,
             'frequency' => 2
         ]);        
         
         Habit::factory()->create([
             'name' => 'Make Bed',
-            'period' => 'Day',
+            'period' => Period::DAY,
             'frequency' => 1
         ]);
 
