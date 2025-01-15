@@ -23,7 +23,7 @@ class HabitFactory extends Factory
 
         return [
             'name' =>       $name,
-            'user_id' =>    User::factory(),
+            'user_id' =>    1, //default to test acct for now
             'frequency' =>  fake()->randomDigitNotNull(),
             'period' =>     fake()->randomElement($array = (\App\Enums\Period::cases()))
         ];

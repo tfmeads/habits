@@ -18,8 +18,9 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Taylor',
+            'email' => 'taylormeads1@gmail.com',
+            'password' => '$2y$12$Dm1qbr/DOlKMLHDi6.Kid.xIaEIdvxxK.cpObS0DSkm8pwq5sRYKO'
         ]);
 
         $this->call(HabitSeeder::class);
