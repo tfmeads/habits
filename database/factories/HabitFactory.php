@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,8 +23,9 @@ class HabitFactory extends Factory
 
         return [
             'name' =>       $name,
+            'user_id' =>    User::factory(),
             'frequency' =>  fake()->randomDigitNotNull(),
-            'period' =>     fake()->randomElement($array = array (\App\Enums\Period::cases()))
+            'period' =>     fake()->randomElement($array = (\App\Enums\Period::cases()))
         ];
     }
 }

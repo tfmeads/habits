@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Models;
+
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 use App\Enums\Period;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,4 +16,8 @@ class Habit extends Model{
     protected $fillable = ['period','frequency','name'];
     protected $casts = ['period' => Period::class];
 
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

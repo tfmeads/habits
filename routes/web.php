@@ -9,14 +9,20 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HabitController;
 
 Route::get('/', function () {
-    return view('home',
-    [
-        'habits' => Habit::all()
-    ]);
+
+    if(Auth::guest()){
+        return view('about');
+    }
+    else{
+        return view('home',
+        [
+            'habits' => Habit::all()
+        ]);
+    }
 }
 );
 
-Route::resource('habits', HabitController::class);
+Route::resource('habits', HabitController::class)->middleware('auth');
 
 Route::view('/about', 'about');
 

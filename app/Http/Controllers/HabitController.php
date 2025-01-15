@@ -8,6 +8,7 @@ use App\Models\Habit;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Gate;
 
 class HabitController extends Controller{
 
@@ -21,11 +22,12 @@ class HabitController extends Controller{
     }
     
     public function create(){
+
         $habit = [
             'id'    => 0,
             'name' => '',
             'frequency' => 1,
-            'period' => 'Day'
+            'period' => Period::DAY
         ];
     
         return view('habits.create', [
@@ -42,6 +44,8 @@ class HabitController extends Controller{
     }
     
     public function store(){
+        Gate::authorize('edit-habit',$habit);
+
         request()->validate([
             'name' => ['required', 'min:2','max:50',Rule::unique('habits')->whereNull('deleted_at')],
             'frequency' => ['required','min:1','max:99'],
@@ -58,6 +62,9 @@ class HabitController extends Controller{
     }
     
     public function edit(Habit $habit){
+
+        Gate::authorize('edit-habit',$habit);
+        
         return view('habits.create',
         [
             'habit' => $habit,
@@ -66,6 +73,8 @@ class HabitController extends Controller{
     }
     
     public function update(Habit $habit){
+
+        Gate::authorize('edit-habit',$habit);
 
         request()->validate([
             'name' => ['required', 'min:2','max:50',Rule::unique('habits')->ignore($habit->id)->whereNull('deleted_at')],
@@ -85,7 +94,7 @@ class HabitController extends Controller{
 
     public function destroy(Habit $habit){
 
-        //TODO authorize...
+        Gate::authorize('edit-habit',$habit);
 
         $habit->delete();
 
