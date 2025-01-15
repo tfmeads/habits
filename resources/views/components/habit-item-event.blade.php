@@ -27,8 +27,9 @@ $valid_events = DB::table('habit_events')
 
 $times_done = $valid_events->count();
 
+$locked = $times_done >= $habit->frequency;
 ?>
-<button form={{$form_id}}><strong>{{$habit->name}}</strong> {{$times_done}}/{{$habit->frequency}} times</button>
+<button style="background-color:{{$locked ? '#90EE90' : '#FFCCCB'}};" {{$locked ? 'disabled' : ''}}form={{$form_id}}><strong>{{$habit->name}}</strong> {{$times_done}}/{{$habit->frequency}} times</button>
 
 
 <form id={{$form_id}} class="hidden" method="POST" action={{"/habits/$habit->id/logevent"}}>
