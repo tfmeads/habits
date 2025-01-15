@@ -13,9 +13,9 @@ session(['previous-url' => request()->url()]);
 <x-homenav>
 <x-slot:heading>Home</x-slot:heading>
 
-@includeWhen(count($dailies) > 0,'components.habitlist', ['title' => $day, 'list' => $dailies])
-@includeWhen(count($weeklies) > 0,'components.habitlist', ['title' => $week, 'list' => $weeklies])
-@includeWhen(count($monthlies) > 0,'components.habitlist', ['title' => date('F'), 'list' => $monthlies])
-@includeWhen(count($yearlies) > 0, 'components.habitlist', ['title' => date('Y'), 'list' => $yearlies])
+@includeWhen(count($dailies) > 0,'components.habitlist', ['title' => $day, 'list' => $dailies, 'type' => 'event'])
+@includeWhen(count($weeklies) > 0,'components.habitlist', ['title' => $week, 'list' => $weeklies, 'type' => 'event'])
+@includeWhen(count($monthlies) > 0,'components.habitlist', ['title' => date('F'), 'list' => $monthlies, 'type' => 'event'])
+@includeWhen(count($yearlies) > 0, 'components.habitlist', ['title' => date('Y'), 'list' => $yearlies, 'type' => 'event'])
 
 </x-homenav>

@@ -1,0 +1,1 @@
+<a href="/habits/{{$habit->id}}"><strong>{{$habit->name}}</strong></a> {{$habit->frequency}} times a {{$habit->period}}

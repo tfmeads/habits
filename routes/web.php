@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-
 use App\Enums\Period;
+
 use App\Models\Habit;
+use App\Models\HabitEvent;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HabitController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
 
@@ -23,6 +24,18 @@ Route::get('/', function () {
 );
 
 Route::resource('habits', HabitController::class)->middleware('auth');
+Route::post('habits/{habit}/logevent', function ($habit){
+
+
+    $event = HabitEvent::factory()->create([
+        'habit_id' => $habit,
+        'note' => '',
+    ]);
+
+    return redirect(session('previous-url'));;
+    
+
+})->middleware(['auth', 'verified']);
 
 Route::view('/about', 'about');
 
