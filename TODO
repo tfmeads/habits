@@ -1,8 +1,7 @@
 Features TODO
 
-- Add user authorization
-- Mark if you've done a habit for the day
+- Configurable randomized daily email with list of habits and tasks to do that day 
+- Make email send automatically 
 - One off tasks - use like I use reminders for iOS
 - Integrate UI library
 - Calendar display that shows github style heatmap of habits done
-- Configurable daily / weekly email with randomized list of habits and tasks to do each day 

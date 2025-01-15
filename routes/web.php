@@ -4,7 +4,9 @@ use App\Enums\Period;
 
 use App\Models\Habit;
 use App\Models\HabitEvent;
+use App\Mail\DailyHabitsMail;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HabitController;
 use App\Http\Controllers\ProfileController;
@@ -22,6 +24,18 @@ Route::get('/', function () {
     }
 }
 );
+
+Route::get('mailtest', function(){
+    if(Auth::guest()){
+        return redirect('/login');
+    }
+    
+    Mail::to(Auth::user()->email)->send(
+        new DailyHabitsMail()
+    );
+
+    return 'Mail sent to '.Auth::user()->email;
+});
 
 Route::resource('habits', HabitController::class)->middleware('auth');
 Route::post('habits/{habit}/logevent', function ($habit){
