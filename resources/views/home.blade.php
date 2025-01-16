@@ -4,7 +4,31 @@ $weeklies = $habits->where('period',\App\Enums\Period::WEEK);
 $monthlies = $habits->where('period',\App\Enums\Period::MONTH);
 $yearlies = $habits->where('period',\App\Enums\Period::YEAR);
 
-$day_label = "Today ({$target_date->format('m/d')})";
+$now = \Carbon\Carbon::now()->setTime(0,0);
+$target = \Carbon\Carbon::parse($target_date->clone());
+echo "$now -> $target\n";
+
+$diff_string = $target->diffForHumans($now, [
+    'syntax' => \Carbon\CarbonInterface::DIFF_RELATIVE_TO_NOW,
+    'skip' => 'week',
+    'join' => ', '
+],false,3); 
+
+if($diff_string == '0 seconds ago'){
+    $diff_string = 'Today';
+}
+if($diff_string == '1 day ago'){
+    $diff_string = 'Yesterday';
+}
+if($diff_string == '1 day from now'){
+    $diff_string = 'Tomorrow';
+}
+
+if($diff_string == '2 days from now'){
+    $diff_string = 'Day after Tomorrow';
+}
+
+$day_label = "$diff_string ({$target_date->format('m/d')})";
 
 $day = $target_date->clone()->subDay();
 $prev = $day->format('m-d-Y');
