@@ -54,7 +54,9 @@ class HabitController extends Controller{
     }
     
     public function store(){
-        Gate::authorize('edit-habit',$habit);
+        if(Auth::guest()){
+            return redirect('/login');
+        }
 
         request()->validate([
             'name' => ['required', 'min:2','max:50',Rule::unique('habits')->whereNull('deleted_at')],
@@ -65,7 +67,8 @@ class HabitController extends Controller{
         $habit = Habit::create([
             'name' => request('name'),
             'frequency' => request('frequency'),
-            'period' => request('period')
+            'period' => request('period'),
+            'user_id' => Auth::user()->id,
         ]);
     
         return redirect('/habits');

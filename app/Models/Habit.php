@@ -18,7 +18,7 @@ class Habit extends Model{
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['period','frequency','name'];
+    protected $fillable = ['period','frequency','name','user_id'];
     protected $casts = ['period' => Period::class];
 
     public function user() : BelongsTo

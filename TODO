@@ -1,6 +1,6 @@
 Features TODO
 
-- Configurable randomized daily email with list of habits and tasks to do that day 
+- Add field to each habit that limits amount of logs per day (i.e can only do habit once a day, or up to 5 times etc)
 - Make email send automatically 
 - One off tasks - use like I use reminders for iOS
 - Integrate UI library
