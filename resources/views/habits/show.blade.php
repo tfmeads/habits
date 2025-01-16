@@ -1,3 +1,6 @@
+<?
+$events = $habit->events()->get();
+?>
 <x-homenav>
 <x-slot:heading>
 Manage Habit
@@ -11,4 +14,7 @@ Manage Habit
 </x-homenav>
 
 <button type="button"><a  href="/habits/{{$habit->id}}/edit">Edit Habit</a></button>
+
+@include('components.habit-event-list', ['title' => 'History', 'events' => $events])
+
 
