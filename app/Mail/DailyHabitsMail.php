@@ -99,6 +99,8 @@ class DailyHabitsMail extends Mailable
 
             $times_left = $habit->frequency - $done_already->count();
 
+            $times_left = min($times_left, $habit->get_allowed_logs_left());
+
             for($i = 0; $i < $times_left; $i++){
                 $individual_tasks[] = $habit;
             }
@@ -126,6 +128,7 @@ class DailyHabitsMail extends Mailable
             ->get();
 
             $times_left = $habit->frequency - $done_already->count();
+            $times_left = min($times_left, $habit->get_allowed_logs_left());
 
             for($i = 0; $i < $times_left; $i++){
                 $individual_tasks[] = $habit;

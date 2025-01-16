@@ -7,12 +7,14 @@ use App\Models\Habit;
 use App\Models\HabitEvent;
 use App\Mail\DailyHabitsMail;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HabitController;
 use App\Http\Controllers\ProfileController;
 use Whitecube\LaravelTimezones\Facades\Timezone;
 
+//Homepage
 Route::get('/', function () {
 
     if(Auth::guest()){
@@ -22,6 +24,25 @@ Route::get('/', function () {
         return view('home',
         [
             'habits' => Habit::where('user_id',Auth::user()->id)->get(),
+            'target_date' => Timezone::date(Carbon::now()),
+        ]);
+    }
+}
+);
+
+//Homepage with arguments
+Route::get('home/{date?}', function ($date = NULL) {
+
+    $date = str_replace('-','/',$date);
+
+    if(Auth::guest()){
+        return view('about');
+    }
+    else{
+        return view('home',
+        [
+            'habits' => Habit::where('user_id',Auth::user()->id)->get(),
+            'target_date' => Carbon::parse($date),
         ]);
     }
 }
@@ -45,7 +66,11 @@ Route::resource('habits', HabitController::class)->middleware('auth');
 
 Route::post('habits/{habit}/logevent', function (Habit $habit){
 
-    $left_today = $habit->get_allowed_logs_left_today();
+    $date = request('date'); //todo sanitization
+
+    $left_today = $habit->get_allowed_logs_left($date);
+
+    echo "Logging event @ $date, $left_today left\n";
     
     //Don't allow new events when daily max has been hit
     if($habit->period != Period::DAY && $left_today <= 0){
@@ -54,7 +79,7 @@ Route::post('habits/{habit}/logevent', function (Habit $habit){
 
     $event = HabitEvent::factory()->create([
         'habit_id' => $habit,
-        'logged_at' => Carbon::now(), //store in db as UTC, Timezone library takes care of user display
+        'logged_at' => Carbon::parse($date,Timezone::current()), //store in db as UTC, Timezone library takes care of user display
         'note' => '',
     ]);
 

@@ -33,12 +33,12 @@ class Habit extends Model{
     }
 
 
-    public function get_allowed_logs_left_today(){
+    public function get_allowed_logs_left($date = NULL){
         if($this->daily_max == 0){
             return 999;
         }
 
-        $valid_events = $this->get_events_for_day();
+        $valid_events = $this->get_events_for_day($date);
 
         $left_today = $this->daily_max - $valid_events->count();
 
@@ -46,22 +46,47 @@ class Habit extends Model{
     }
 
 
-    public function get_events_for_day(){
+    public function get_events_for_day($date = NULL){
+        $now = $date ? Carbon::parse($date,Timezone::current()) : (Carbon::now());
+
+        //echo "Getting events for day {$this->period->name}, $date\n";
+
+        $start = $now->clone()->startOfDay();
+        $end = $now->clone()->endOfDay();
+        
+        //echo "$start -> $end\n";
+
         if($this->events->count() > 0){
-            return $this->events->toQuery()->where('logged_at', '>=', Timezone::date(Carbon::now())->startOfDay())->get();
+            return $this->events->toQuery()
+            ->where('logged_at', '>=', $start)
+            ->where('logged_at', '<', $end)
+            ->get();
+
+
         }
         return $this->events;
     }
 
-    public function get_events_for_deadline(){
+    public function get_events_for_deadline($date = NULL){
+        //echo "Getting events for deadline {$this->period->name}, $date\n";
+        $start = $this->get_start_date($date);
+        $end = $this->get_end_date($date);
+
+        //echo "$start -> $end\n";
+
         if($this->events->count() > 0){
-            return $this->events->toQuery()->where('logged_at', '>=', $this->get_deadline())->get();
+
+            return $this->events->toQuery()
+            ->where('logged_at', '>=', $start)
+            ->where('logged_at', '<', $end)
+            ->get();
+
         }
         return $this->events;
     }
 
-    public function get_deadline(){
-        $now = Timezone::date(Carbon::now());
+    public function get_start_date($date = NULL){
+        $now = $date ? Carbon::parse($date,Timezone::current()) : (Carbon::now());
 
         $created_at_deadline = '';
 
@@ -77,6 +102,29 @@ class Habit extends Model{
                 break;
             case Period::YEAR:
                 $created_at_deadline = $now->startOfYear();
+                break;
+        }
+
+        return $created_at_deadline;
+    }
+
+    public function get_end_date($date = NULL){
+        $now = $date ? Carbon::parse($date,Timezone::current()) : (Carbon::now());
+
+        $created_at_deadline = '';
+
+        switch($this->period){
+            case Period::DAY:
+                $created_at_deadline = $now->endOfDay();
+                break;
+            case Period::WEEK:
+                $created_at_deadline = $now->endOfWeek(\Carbon\Carbon::SUNDAY);
+                break;
+            case Period::MONTH:
+                $created_at_deadline = $now->endOfMonth();
+                break;
+            case Period::YEAR:
+                $created_at_deadline = $now->endOfYear();
                 break;
         }
 
