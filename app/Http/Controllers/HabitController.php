@@ -59,17 +59,23 @@ class HabitController extends Controller{
             return redirect('/login');
         }
 
+        //What's the frequency, Kenneth?
+        $kenneth = request('frequency');
+
         request()->validate([
             'name' => ['required', 'min:2','max:50',Rule::unique('habits')->whereNull('deleted_at')],
-            'frequency' => ['required','min:1','max:99'],
+            'frequency' => ['required','numeric','min:1','max:99'],
             'period' => ['required'],
+            'daily_max' => ['bail','required','numeric','min:0',"max:$kenneth"],
         ]);
+
         
         $habit = Habit::create([
             'name' => request('name'),
-            'frequency' => request('frequency'),
+            'frequency' => $kenneth,
             'period' => request('period'),
             'user_id' => Auth::user()->id,
+            'daily_max' => request('daily_max')
         ]);
     
         return redirect('/habits');
@@ -90,19 +96,25 @@ class HabitController extends Controller{
 
         Gate::authorize('edit-habit',$habit);
 
-        $req_freq = request('frequency');
+        //What's the frequency, Kenneth?
+        $kenneth = request('frequency');
+
+        $customMessages = [
+            'daily_max.max' => 'The :attribute field must not be greater than the frequency.'
+        ];
 
         request()->validate([
             'name' => ['required', 'min:2','max:50',Rule::unique('habits')->ignore($habit->id)->whereNull('deleted_at')],
-            'frequency' => ['required','min:1','max:99'],
+            'frequency' => ['required','numeric','min:1','max:99'],
             'period' => ['required', Rule::in(array_column(Period::cases(), 'value'))],
-            'daily_max' => ['required','min:0',"max:$req_freq"],
-        ]);
+            'daily_max' => ['bail','required','numeric','min:0',"max:$kenneth"],
+        ], $customMessages);
+
     
     
         $habit->update([
             'name' => request('name'),
-            'frequency' => $req_freq,
+            'frequency' => request('frequency'),
             'period' => request('period'),
             'daily_max' => request('daily_max')
         ]);

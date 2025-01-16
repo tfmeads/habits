@@ -8,12 +8,14 @@ session(['previous-url' => request()->url()]);
 ?>
 <x-homenav>
 <x-slot:heading>Manage Habits</x-slot:heading>
+<div style="display: flex; flex-direction: column; align-items: center;">
+    
+    <button style="background-color: #90EE90;" type="button"><a  href="/habits/create">Track New Habit</a></button>
 
-@include('components.habitlist', ['title' => 'Active Habits', 'list' => $actives])
-
-<button type="button"><a  href="/habits/create">Track New Habit</a></button>
-
-@include('components.habitlist', ['title' => 'Archived Habits', 'list' => $archives])
+    @include('components.habitlist', ['title' => 'Active Habits', 'list' => $actives])
+        
+    @include('components.habitlist', ['title' => 'Archived Habits', 'list' => $archives])
+</div>
 
 </x-homenav>
 

@@ -20,7 +20,7 @@ $submit_label = $id ? 'Save Habit' : 'Track Habit';
         <p style="color:red"><i >{{$message}}</i></p>
     @enderror
 <strong>    
-<input required type="number" min="1" max="99" name="frequency" id="frequency" value="{{$habit['frequency']}}"></input>    
+<input required type="number" min="1" name="frequency" id="frequency" value="{{$habit['frequency']}}"></input>    
 </strong> times a 
 <u>
     <select id="period" name="period">
@@ -45,6 +45,9 @@ $submit_label = $id ? 'Save Habit' : 'Track Habit';
 @error('period')
 <p style="color:red"><i >{{$message}}</i></p>
 @enderror
+@error('daily_max')
+<p style="color:red"><i >{{$message}}</i></p>
+@enderror
 
 <br><br>
 <button type="submit">{{$submit_label}}</button>
@@ -56,7 +59,6 @@ $submit_label = $id ? 'Save Habit' : 'Track Habit';
     @csrf
     @method('DELETE')
 </form>
-
 
 </x-homenav>
 
