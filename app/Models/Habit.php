@@ -18,7 +18,7 @@ class Habit extends Model{
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['period','frequency','name','user_id'];
+    protected $fillable = ['period','frequency','daily_max','name','user_id'];
     protected $casts = ['period' => Period::class];
 
     public function user() : BelongsTo
@@ -30,6 +30,34 @@ class Habit extends Model{
     public function events() : HasMany
     {
         return $this->hasMany(HabitEvent::class);
+    }
+
+
+    public function get_allowed_logs_left_today(){
+        if($this->daily_max == 0){
+            return 999;
+        }
+
+        $valid_events = $this->get_events_for_day();
+
+        $left_today = $this->daily_max - $valid_events->count();
+
+        return $left_today;
+    }
+
+
+    public function get_events_for_day(){
+        if($this->events->count() > 0){
+            return $this->events->toQuery()->where('logged_at', '>=', Timezone::date(Carbon::now())->startOfDay())->get();
+        }
+        return $this->events;
+    }
+
+    public function get_events_for_deadline(){
+        if($this->events->count() > 0){
+            return $this->events->toQuery()->where('logged_at', '>=', $this->get_deadline())->get();
+        }
+        return $this->events;
     }
 
     public function get_deadline(){

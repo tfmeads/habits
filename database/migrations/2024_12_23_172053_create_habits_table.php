@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('period');
             $table->integer('frequency');
+            $table->integer('daily_max');
             $table->timestamps();
             $table->softDeletes();
         });

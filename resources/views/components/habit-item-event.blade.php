@@ -1,19 +1,22 @@
 <?
 $form_id = "log-habit-event-$habit->id";
 
-$created_at_deadline = $habit->get_deadline();
-
-
-$valid_events = DB::table('habit_events')
-                ->where('habit_id','=',$habit->id)
-                ->whereDate('logged_at', '>=', $created_at_deadline)
-                ->get();
+$valid_events = $habit->get_events_for_deadline();
 
 $times_done = $valid_events->count();
 
-$locked = $times_done >= $habit->frequency;
+$completed = $times_done >= $habit->frequency;
+$locked = $habit->period != App\Enums\Period::DAY && $habit->get_allowed_logs_left_today() <= 0;
+
+if($completed){
+    $color = '#90EE90';
+}
+else{
+    $color = $locked ? '#FFFFC5' : '#FFCCCB';
+}
 ?>
-<button style="background-color:{{$locked ? '#90EE90' : '#FFCCCB'}};" {{$locked ? 'disabled' : ''}}form={{$form_id}}><strong>{{$habit->name}}</strong> {{$times_done}}/{{$habit->frequency}} times</button>
+
+<button style="background-color:{{$color}};" {{$completed ? 'disabled' : ''}}form={{$form_id}}><strong>{{$habit->name}}</strong> {{$times_done}}/{{$habit->frequency}} times</button>
 
 
 <form id={{$form_id}} class="hidden" method="POST" action={{"/habits/$habit->id/logevent"}}>

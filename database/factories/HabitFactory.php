@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Enums\Period;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,11 +22,17 @@ class HabitFactory extends Factory
         $name = fake()->unique()->text($maxNbChars = 20);
         $name = str_replace('.','',$name);
 
-        return [
+        $def = 
+        [
             'name' =>       $name,
             'user_id' =>    1, //default to test acct for now
             'frequency' =>  fake()->randomDigitNotNull(),
-            'period' =>     fake()->randomElement($array = (\App\Enums\Period::cases()))
+            'period' =>     fake()->randomElement($array = (Period::cases())),
+            'daily_max' => 1,
         ];
+
+        //$def['daily_max'] = ($def['period'] == Period::DAY) ? 0 : 1;
+
+        return $def;
     }
 }

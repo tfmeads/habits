@@ -34,6 +34,7 @@ class HabitController extends Controller{
             'id'    => 0,
             'name' => '',
             'frequency' => 1,
+            'daily_max' => 0,
             'period' => Period::DAY
         ];
     
@@ -89,17 +90,21 @@ class HabitController extends Controller{
 
         Gate::authorize('edit-habit',$habit);
 
+        $req_freq = request('frequency');
+
         request()->validate([
             'name' => ['required', 'min:2','max:50',Rule::unique('habits')->ignore($habit->id)->whereNull('deleted_at')],
             'frequency' => ['required','min:1','max:99'],
             'period' => ['required', Rule::in(array_column(Period::cases(), 'value'))],
+            'daily_max' => ['required','min:0',"max:$req_freq"],
         ]);
     
     
         $habit->update([
             'name' => request('name'),
-            'frequency' => request('frequency'),
-            'period' => request('period')
+            'frequency' => $req_freq,
+            'period' => request('period'),
+            'daily_max' => request('daily_max')
         ]);
     
         return redirect(session('previous-url'));;
