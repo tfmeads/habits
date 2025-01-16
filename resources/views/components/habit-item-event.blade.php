@@ -1,23 +1,7 @@
 <?
 $form_id = "log-habit-event-$habit->id";
-$now = Whitecube\LaravelTimezones\Facades\Timezone::date(\Carbon\Carbon::now());
 
-//dd($now->startOfDay());
-
-switch($habit->period){
-    case \App\Enums\Period::DAY:
-        $created_at_deadline = $now->startOfDay();
-        break;
-    case \App\Enums\Period::WEEK:
-        $created_at_deadline = $now->startOfWeek(\Carbon\Carbon::MONDAY);
-        break;
-    case \App\Enums\Period::MONTH:
-        $created_at_deadline = $now->startOfMonth();
-        break;
-    case \App\Enums\Period::YEAR:
-        $created_at_deadline = $now->startOfYear();
-        break;
-}
+$created_at_deadline = $habit->get_deadline();
 
 
 $valid_events = DB::table('habit_events')

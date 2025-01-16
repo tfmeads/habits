@@ -32,11 +32,13 @@ Route::get('mailtest', function(){
         return redirect('/login');
     }
 
-    Mail::to(Auth::user()->email)->send(
+    $email = Auth::user()->email;
+
+    Mail::to($email)->send(
         new DailyHabitsMail()
     );
 
-    return 'Mail sent to '.Auth::user()->email;
+    return 'Mail sent to '.$email;
 });
 
 Route::resource('habits', HabitController::class)->middleware('auth');

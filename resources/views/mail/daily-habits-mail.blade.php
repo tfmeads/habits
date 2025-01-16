@@ -17,7 +17,7 @@ Here is your personalized daily schedule:
 <u>
     <h2>Daily Habits</h2>
 </u>
-@include('components.habitlist', ['title' => '', 'list' => $dailies, 'type' => 'event'])
+@include('components.habitlist', ['title' => '', 'list' => $dailies, 'type' => 'info'])
 
 <x-mail::button url="habits.test/habits">
 View Habits
