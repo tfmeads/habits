@@ -12,7 +12,7 @@ Here is your personalized daily schedule:
 <u>
     <h2>Today's Tasks</h2>
 </u>
-@include('components.habitlist', ['title' => '', 'list' => $tasks, 'type' => 'event'])
+@include('components.habitlist', ['title' => '', 'list' => $tasks, 'type' => 'event', 'show_form' => false])
 
 <u>
     <h2>Daily Habits</h2>

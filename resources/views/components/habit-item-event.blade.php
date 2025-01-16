@@ -1,6 +1,13 @@
 <?
 $form_id = "log-habit-event-$habit->id";
 
+if(!isset($target_date)){
+    $target_date =  Whitecube\LaravelTimezones\Facades\Timezone::date(Carbon\Carbon::now());
+}
+if(!isset($show_form)){
+    $show_form = true;
+}
+
 $valid_events = $habit->get_events_for_deadline($target_date->clone());
 $todays_events = $habit->get_events_for_day($target_date->clone());
 $times_done = $valid_events->count();
@@ -25,10 +32,14 @@ $title = $habit->name;
     ✓
     @endforeach
 </button> 
-<input hidden form={{$form_id}} name="date" value={{$target_date}} />
+
+@if($show_form)
+<input hidden class="hidden" class="display: none;" form={{$form_id}} name="date" value={{$target_date}} />
+@endif
 
 
 <form id={{$form_id}} class="hidden" method="POST" action={{"/habits/$habit->id/logevent"}}>
     @csrf
     @method('POST')
+
 </form>

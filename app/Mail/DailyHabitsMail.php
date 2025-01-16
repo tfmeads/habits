@@ -89,13 +89,7 @@ class DailyHabitsMail extends Mailable
 
 
         foreach($weeklies as $habit){
-
-            $created_at_deadline = $habit->get_deadline();
-
-            $done_already = DB::table('habit_events')
-            ->where('habit_id','=',$habit->id)
-            ->whereDate('logged_at', '>=', $created_at_deadline)
-            ->get();
+            $done_already = $habit->get_events_for_deadline();
 
             $times_left = $habit->frequency - $done_already->count();
 
@@ -119,13 +113,8 @@ class DailyHabitsMail extends Mailable
         $individual_tasks = [];
 
         foreach($monthlies as $habit){
+            $done_already = $habit->get_events_for_deadline();
 
-            $created_at_deadline = $habit->get_deadline();
-
-            $done_already = DB::table('habit_events')
-            ->where('habit_id','=',$habit->id)
-            ->whereDate('logged_at', '>=', $created_at_deadline)
-            ->get();
 
             $times_left = $habit->frequency - $done_already->count();
             $times_left = min($times_left, $habit->get_allowed_logs_left());

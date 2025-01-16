@@ -70,12 +70,13 @@ Route::post('habits/{habit}/logevent', function (Habit $habit){
 
     $left_today = $habit->get_allowed_logs_left($date);
 
-    echo "Logging event @ $date, $left_today left\n";
+    //echo "Logging event @ $date, $left_today left\n";
     
     //Don't allow new events when daily max has been hit
     if($habit->period != Period::DAY && $left_today <= 0){
         return redirect(session('previous-url'));
     }
+
 
     $event = HabitEvent::factory()->create([
         'habit_id' => $habit,
