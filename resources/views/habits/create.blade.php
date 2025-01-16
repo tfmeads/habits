@@ -39,7 +39,7 @@ $submit_label = $id ? 'Save Habit' : 'Track Habit';
 @enderror
 <br><br>
 <button type="submit">{{$submit_label}}</button>
-<button form="delete-form" {{ isset($habit) ? '' : 'hidden'}}>Delete Habit</button>
+<button form="delete-form" {{ isset($habit) ? '' : 'hidden'}}>Archive Habit</button>
 </form>
 
 

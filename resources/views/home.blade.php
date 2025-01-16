@@ -4,7 +4,8 @@ $weeklies = $habits->where('period',\App\Enums\Period::WEEK);
 $monthlies = $habits->where('period',\App\Enums\Period::MONTH);
 $yearlies = $habits->where('period',\App\Enums\Period::YEAR);
 
-$now = \Carbon\Carbon::now();
+$now = Whitecube\LaravelTimezones\Facades\Timezone::date(\Carbon\Carbon::now());
+
 $day = "Today ({$now->format('m/d')})";
 $week = $now->startOfWeek()->format('m/d')." → ".$now->endOfWeek()->format('m/d');
 

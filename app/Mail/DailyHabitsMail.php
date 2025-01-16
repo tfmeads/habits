@@ -11,6 +11,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Whitecube\LaravelTimezones\Facades\Timezone;
 
 class DailyHabitsMail extends Mailable
 {
@@ -19,15 +20,19 @@ class DailyHabitsMail extends Mailable
 
     protected $title;
     protected $habits;
+    protected $random_task_list;
 
     /**
      * Create a new message instance.
      */
     public function __construct()
     {
-        $now = \Carbon\Carbon::now();
+        $now = Timezone::date(Carbon::now());
+
         $this->title = 'Daily Schedule '."({$now->format('m/d/Y')})";
         $this->habits = Habit::where('user_id',Auth::user()->id)->get();
+
+        $this->random_task_list = $this->generate_random_daily_tasks();
     }
 
     /**
@@ -52,6 +57,7 @@ class DailyHabitsMail extends Mailable
             with: [
                 'title' => $this->title,
                 'habits' => $this->habits,
+                'tasks' => $this->random_task_list
             ],
         );
     }
@@ -64,5 +70,10 @@ class DailyHabitsMail extends Mailable
     public function attachments(): array
     {
         return [];
+    }
+
+    protected function generate_random_daily_tasks(){
+        return $this->habits->where('period',\App\Enums\Period::WEEK);
+
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('habit_events', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Habit::class);
+            $table->datetime('logged_at');
             $table->string('note');
             $table->timestamps();
             $table->softDeletes();

@@ -1,6 +1,6 @@
 <?
 $form_id = "log-habit-event-$habit->id";
-$now = \Carbon\Carbon::now();
+$now = Whitecube\LaravelTimezones\Facades\Timezone::date(\Carbon\Carbon::now());
 
 //dd($now->startOfDay());
 
@@ -22,7 +22,7 @@ switch($habit->period){
 
 $valid_events = DB::table('habit_events')
                 ->where('habit_id','=',$habit->id)
-                ->whereDate('created_at', '>=', $created_at_deadline)
+                ->whereDate('logged_at', '>=', $created_at_deadline)
                 ->get();
 
 $times_done = $valid_events->count();

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c0b30c7c52b1e12c83bf38e7c5beee7a",
+    "content-hash": "e6d611942a49c8a569a1bdec82184e55",
     "packages": [
         {
             "name": "brick/math",
@@ -5797,6 +5797,73 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "whitecube/laravel-timezones",
+            "version": "v1.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/whitecube/laravel-timezones.git",
+                "reference": "f618bfc074ac33b63360387c7cebdcbfb20d42f4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/whitecube/laravel-timezones/zipball/f618bfc074ac33b63360387c7cebdcbfb20d42f4",
+                "reference": "f618bfc074ac33b63360387c7cebdcbfb20d42f4",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^9|^10|^11",
+                "nesbot/carbon": "^2.64|^3.0",
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.6",
+                "pestphp/pest": "^2.34"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Whitecube\\LaravelTimezones\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Whitecube\\LaravelTimezones\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Toon Van den Bos",
+                    "email": "toon@whitecube.be"
+                }
+            ],
+            "description": "Store UTC dates in the database and work with custom timezones in the application.",
+            "keywords": [
+                "conversion",
+                "laravel",
+                "local",
+                "time",
+                "utc",
+                "whitecube"
+            ],
+            "support": {
+                "issues": "https://github.com/whitecube/laravel-timezones/issues",
+                "source": "https://github.com/whitecube/laravel-timezones/tree/v1.2.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/whitecube",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-11-04T08:24:05+00:00"
         }
     ],
     "packages-dev": [
