@@ -96,7 +96,7 @@ class HabitSeeder extends Seeder
         Habit::factory()->create([
             'name' => 'Repertoire',
             'period' => Period::WEEK,
-            'frequency' => 2,
+            'frequency' => 3,
             'user_id' => 1,
         ]);
         Habit::factory()->create([
@@ -108,6 +108,13 @@ class HabitSeeder extends Seeder
         Habit::factory()->create([
             'name' => 'New Material',
             'period' => Period::WEEK,
+            'frequency' => 1,
+            'user_id' => 1,
+            'daily_max' => 0
+        ]);
+        Habit::factory()->create([
+            'name' => 'Art Refinement',
+            'period' => Period::WEEK,
             'frequency' => 2,
             'user_id' => 1,
             'daily_max' => 0
@@ -115,7 +122,7 @@ class HabitSeeder extends Seeder
         Habit::factory()->create([
             'name' => 'Campfire Song',
             'period' => Period::WEEK,
-            'frequency' => 2,
+            'frequency' => 3,
             'user_id' => 1,
         ]);
 
@@ -150,13 +157,6 @@ class HabitSeeder extends Seeder
             'name' => 'New Art',
             'period' => Period::MONTH,
             'frequency' => 3,
-            'user_id' => 1,
-            'daily_max' => 0
-        ]);
-        Habit::factory()->create([
-            'name' => 'Art Refinement',
-            'period' => Period::MONTH,
-            'frequency' => 7,
             'user_id' => 1,
             'daily_max' => 0
         ]);
