@@ -1,6 +1,5 @@
 Features TODO
 
-- Add field to each habit that limits amount of logs per day (i.e can only do habit once a day, or up to 5 times etc)
 - Make email send automatically 
 - One off tasks - use like I use reminders for iOS
 - Integrate UI library
