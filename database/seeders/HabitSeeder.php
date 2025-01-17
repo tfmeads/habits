@@ -184,6 +184,7 @@ class HabitSeeder extends Seeder
             'period' => Period::MONTH,
             'frequency' => 5,
             'user_id' => 1,
+            'daily_max' => 1,
         ]);
     }
     /**
