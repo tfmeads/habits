@@ -35,6 +35,14 @@ Route::get('home/{date?}', function ($date = NULL) {
 
     $date = str_replace('-','/',$date);
 
+    //404 if date is invalid
+    try{
+        $timezone_adjusted_date = Timezone::date($date);
+    }
+    catch(Exception $e){
+        abort(404);
+    }
+
     if(Auth::guest()){
         return view('about');
     }
@@ -42,7 +50,7 @@ Route::get('home/{date?}', function ($date = NULL) {
         return view('home',
         [
             'habits' => Habit::where('user_id',Auth::user()->id)->get(),
-            'target_date' => Timezone::date($date),
+            'target_date' => $timezone_adjusted_date,
         ]);
     }
 }
@@ -66,17 +74,18 @@ Route::resource('habits', HabitController::class)->middleware('auth');
 
 Route::post('habits/{habit}/logevent', function (Habit $habit){
 
-    $date = request('date'); //todo sanitization
+    request()->validate([
+        'date' => ['required','date'],
+    ]);
+
+    $date = request('date'); 
 
     $left_today = $habit->get_allowed_logs_left($date);
-
-    //echo "Logging event @ $date, $left_today left\n";
     
     //Don't allow new events when daily max has been hit
-    if($habit->period != Period::DAY && $left_today <= 0){
+    if($left_today <= 0){
         return redirect(session('previous-url'));
     }
-
 
     $event = HabitEvent::factory()->create([
         'habit_id' => $habit,
