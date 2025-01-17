@@ -66,3 +66,16 @@ session(['previous-url' => request()->url()]);
 </div>
 
 </x-homenav>
+
+<script>
+    window.addEventListener("scroll", (event) => {
+    let scroll = this.scrollY;
+    sessionStorage.setItem("homepage_scroll",scroll);
+});
+
+    window.addEventListener('DOMContentLoaded',function () {        
+        var scroll = sessionStorage.getItem("homepage_scroll");
+        document.documentElement.scrollTop = scroll;
+});
+
+</script>

@@ -1,8 +1,5 @@
 Features TODO
 
-- Preserve scroll position on home page 
-    (Look into inertia.js https://laracasts.com/series/build-modern-laravel-apps-using-inertia-js/episodes/7)
-    
 - Make email send automatically 
 - Mark items on home page that are on daily schedule
 - One off tasks - use like I use reminders for iOS
