@@ -24,7 +24,7 @@ Route::get('/', function () {
         return view('home',
         [
             'habits' => Habit::where('user_id',Auth::user()->id)->get(),
-            'target_date' => (Carbon::now())->setTime(0,0),
+            'target_date' => Timezone::date(Carbon::now()),
         ]);
     }
 }
@@ -42,7 +42,7 @@ Route::get('home/{date?}', function ($date = NULL) {
         return view('home',
         [
             'habits' => Habit::where('user_id',Auth::user()->id)->get(),
-            'target_date' => Carbon::parse($date),
+            'target_date' => Timezone::date($date),
         ]);
     }
 }
