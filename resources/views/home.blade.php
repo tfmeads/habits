@@ -32,11 +32,11 @@ $day_label = "$diff_string ({$target->format('m/d')})";
 
 $day = $target->clone()->subDay();
 $prev = $day->format('m-d-Y');
-$prev_label = $day->format('m-d');
+$prev_label = "<- ".$day->format('m-d');
 
 $day = $target->clone()->addDay();
 $next = $day->format('m-d-Y');
-$next_label = $day->format('m-d');
+$next_label = $day->format('m-d')." ->";
 
 
 $week = $target->clone()->startOfWeek(\Carbon\Carbon::MONDAY)->format('m/d')." → ".$target_date->clone()->endOfWeek(\Carbon\Carbon::SUNDAY)->format('m/d');
@@ -49,11 +49,11 @@ session(['previous-url' => request()->url()]);
 <x-homenav>
 <x-slot:heading>Home</x-slot:heading>
 
-<div style="margin: auto; width: 60%; display: flex; flex-direction: column;">
-    <div style="margin: auto; width:50%; display: flex; flex-direction: row; align-items: baseline;">
-        <button><a href={{"/home/$prev"}}><strong>{{$prev_label}}</strong></a></button>
+<div style="margin: auto; min-width: 60%; display: flex; flex-direction: column; align-items: center;">
+    <div style="margin: auto; width:50%; display: flex; flex-direction: row; align-items: baseline; justify-content: space-around">
+        <button style="min-width:70px"><a href={{"/home/$prev"}}><strong>{{$prev_label}}</strong></a></button>
         @includeWhen(count($dailies) > 0,'components.habitlist', ['title' => $day_label, 'list' => $dailies, 'type' => 'event'])
-        <button><a href={{"/home/$next"}}><strong>{{$next_label}}</strong></a></button>
+        <button style="min-width:70px"><a href={{"/home/$next"}}><strong>{{$next_label}}</strong></a></button>
     </div>
         <div >
             @includeWhen(count($weeklies) > 0,'components.habitlist', ['title' => $week, 'list' => $weeklies, 'type' => 'event'])
