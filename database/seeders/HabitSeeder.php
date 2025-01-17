@@ -68,62 +68,68 @@ class HabitSeeder extends Seeder
             'period' => Period::WEEK,
             'frequency' => 3,
             'user_id' => 1,
+            'daily_max' => 1,
         ]);
         Habit::factory()->create([
             'name' => 'Read Nonfiction',
             'period' => Period::WEEK,
             'frequency' => 2,
             'user_id' => 1,
+            'daily_max' => 1,
         ]);
         Habit::factory()->create([
             'name' => '読書',
             'period' => Period::WEEK,
             'frequency' => 2,
             'user_id' => 1,
+            'daily_max' => 1,
         ]);
         Habit::factory()->create([
             'name' => 'Creative Reading',
             'period' => Period::WEEK,
             'frequency' => 1,
             'user_id' => 1,
+            'daily_max' => 1,
         ]);
         Habit::factory()->create([
             'name' => 'Vocal Practice',
             'period' => Period::WEEK,
             'frequency' => 4,
             'user_id' => 1,
+            'daily_max' => 1,
         ]);
         Habit::factory()->create([
             'name' => 'Repertoire',
             'period' => Period::WEEK,
             'frequency' => 3,
             'user_id' => 1,
+            'daily_max' => 1,
         ]);
         Habit::factory()->create([
             'name' => 'Rhythm Exercises',
             'period' => Period::WEEK,
             'frequency' => 2,
             'user_id' => 1,
+            'daily_max' => 1,
         ]);
         Habit::factory()->create([
             'name' => 'New Material',
             'period' => Period::WEEK,
             'frequency' => 1,
             'user_id' => 1,
-            'daily_max' => 0
         ]);
         Habit::factory()->create([
             'name' => 'Art Refinement',
             'period' => Period::WEEK,
             'frequency' => 2,
             'user_id' => 1,
-            'daily_max' => 0
         ]);
         Habit::factory()->create([
             'name' => 'Campfire Song',
             'period' => Period::WEEK,
             'frequency' => 3,
             'user_id' => 1,
+            'daily_max' => 1,
         ]);
 
         Habit::factory()->create([
@@ -131,12 +137,14 @@ class HabitSeeder extends Seeder
             'period' => Period::WEEK,
             'frequency' => 5,
             'user_id' => 1,
+            'daily_max' => 1,
         ]);
         Habit::factory()->create([
             'name' => 'Cardio Workout',
             'period' => Period::WEEK,
             'frequency' => 3,
             'user_id' => 1,
+            'daily_max' => 1,
         ]);
 
         Habit::factory()->create([
@@ -144,6 +152,7 @@ class HabitSeeder extends Seeder
             'period' => Period::MONTH,
             'frequency' => 7,
             'user_id' => 1,
+            'daily_max' => 1,
         ]);
 
         Habit::factory()->create([
@@ -151,35 +160,30 @@ class HabitSeeder extends Seeder
             'period' => Period::MONTH,
             'frequency' => 5,
             'user_id' => 1,
-            'daily_max' => 0
         ]);
         Habit::factory()->create([
             'name' => 'New Art',
             'period' => Period::MONTH,
             'frequency' => 3,
             'user_id' => 1,
-            'daily_max' => 0
         ]);
         Habit::factory()->create([
             'name' => 'Composition',
             'period' => Period::MONTH,
             'frequency' => 6,
             'user_id' => 1,
-            'daily_max' => 0
         ]);
         Habit::factory()->create([
             'name' => 'Lyrics',
             'period' => Period::MONTH,
             'frequency' => 6,
             'user_id' => 1,
-            'daily_max' => 0
         ]);
         Habit::factory()->create([
             'name' => 'VJ Sketch',
             'period' => Period::MONTH,
             'frequency' => 5,
             'user_id' => 1,
-            'daily_max' => 0
         ]);
     }
     /**

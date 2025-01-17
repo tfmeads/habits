@@ -28,10 +28,8 @@ class HabitFactory extends Factory
             'user_id' =>    1, //default to test acct for now
             'frequency' =>  fake()->randomDigitNotNull(),
             'period' =>     fake()->randomElement($array = (Period::cases())),
-            'daily_max' => 1,
+            'daily_max' => 0,
         ];
-
-        //$def['daily_max'] = ($def['period'] == Period::DAY) ? 0 : 1;
 
         return $def;
     }
