@@ -7,3 +7,4 @@ Features TODO
 - Calendar display that shows github style heatmap of habits done
 - Allow for un-archiving or permanently deleting archived habits
 - Tag system - allow lists to be filtered by tags (Music, Exercise, Chores etc.)
+- Streak indicator for habits you've aced for a certain period of time

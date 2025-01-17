@@ -18,8 +18,11 @@ $locked = $habit->period != App\Enums\Period::DAY && $habit->get_allowed_logs_le
 if($completed){
     $color = '#90EE90';
 }
+else if($times_done == 0){
+    $color = '#FFCCCB';
+}
 else{
-    $color = $locked ? '#FFFFC5' : '#FFCCCB';
+    $color = $locked ? '#ADD8E6' : '#FFFFC5';
 }
 
 $checked = $todays_events->count();
@@ -27,7 +30,7 @@ $checked = $todays_events->count();
 $title = $habit->name;
 ?>
 
-<button style="background-color:{{$color}};" {{$completed ? 'disabled' : ''}}form={{$form_id}}><strong>{{$title}}</strong> {{$times_done}}/{{$habit->frequency}} times <br> @if(!$checked) <br> @endif
+<button style="background-color:{{$color}}; width: 100%;" {{$completed ? 'disabled' : ''}}form={{$form_id}}><strong>{{$title}}</strong> {{$times_done}}/{{$habit->frequency}} times <br> @if(!$checked) <br> @endif
     @foreach($todays_events as $event)
     ✓
     @endforeach
