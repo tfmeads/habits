@@ -6,7 +6,6 @@ $yearlies = $habits->where('period',\App\Enums\Period::YEAR);
 
 $now = \Carbon\Carbon::now()->setTime(0,0);
 $target = \Carbon\Carbon::parse($target_date->clone());
-echo "$now -> $target\n";
 
 $diff_string = $target->diffForHumans($now, [
     'syntax' => \Carbon\CarbonInterface::DIFF_RELATIVE_TO_NOW,
