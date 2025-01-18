@@ -8,6 +8,8 @@ $submit_label = $id ? 'Save Habit' : 'Track Habit';
 <x-slot:heading>
 {{ $id ? 'Edit Habit' : 'Track New Habit'}}
 </x-slot:heading>
+<link rel="stylesheet" href="{{asset('css/habits-edit.css')}}">
+<link rel="stylesheet" href="{{asset('css/button.css')}}">
 
 <br>
 
@@ -15,44 +17,63 @@ $submit_label = $id ? 'Save Habit' : 'Track Habit';
     <input type="hidden" name="_method" value={{$method}}>
     @csrf
 
-    <input type="text" name="name" id="name" max=50 placeholder="New Habit" value="{{$habit['name']}}"></input>   
-    @error('name')
-        <p style="color:red"><i >{{$message}}</i></p>
+<strong> 
+       <div id="main-wrapper">
+
+
+            <div>
+                <input type="text" name="name" id="name" max=50 placeholder="New Habit" value="{{$habit['name']}}"></input>
+                @error('name')
+                    <p style="color:red"><i >{{$message}}</i></p>
+                @enderror
+            </div>
+           <div>
+
+            <br>
+               
+               <input required type="number" min="1" max="99" name="frequency" id="frequency" value="{{$habit['frequency']}}"></input>
+               </strong> times a
+               <u>
+                   <select id="period" name="period">
+               
+                   @foreach(\App\Enums\Period::cases() as $period)
+                   <option value="{{ $period }}" {{ $habit['period'] == $period ? 'selected="selected"' : '' }}>{{$period}}</option>
+                   @endforeach
+               
+                   </select>
+               </u>
+           </div>
+           <br>
+           
+           <p id="daily_max_section">
+               Max
+               <input id="daily_max_input" required type="number" min="0" max="99" name="daily_max" value="{{$habit['daily_max']}}"></input> times a day
+           </p>
+           
+               </select>
+
+
+<div class="btn-container">
+    <button class="btn-create" type="submit">{{$submit_label}}</button>
+    <button class="btn-delete" form="delete-form" {{ isset($habit) ? '' : 'hidden'}}>Archive Habit</button>
+</div>
+<div>
+    @error('frequency')
+    <p style="color:red"><i >{{$message}}</i></p>
     @enderror
-<strong>    
-<input required type="number" min="1" name="frequency" id="frequency" value="{{$habit['frequency']}}"></input>    
-</strong> times a 
-<u>
-    <select id="period" name="period">
-
-    @foreach(\App\Enums\Period::cases() as $period)
-    <option value="{{ $period }}" {{ $habit['period'] == $period ? 'selected="selected"' : '' }}>{{$period}}</option>    
-    @endforeach
-
-    </select>
-</u>
-<br>
-
-<p id="daily_max_section">
-    Max
-    <input id="daily_max_input" required type="number" min="0" name="daily_max" value="{{$habit['daily_max']}}"></input> times a day
-</p>
-
-    </select>
-@error('frequency')
-<p style="color:red"><i >{{$message}}</i></p>
-@enderror
-@error('period')
-<p style="color:red"><i >{{$message}}</i></p>
-@enderror
-@error('daily_max')
-<p style="color:red"><i >{{$message}}</i></p>
-@enderror
+    @error('period')
+    <p style="color:red"><i >{{$message}}</i></p>
+    @enderror
+    @error('daily_max')
+    <p style="color:red"><i >{{$message}}</i></p>
+    @enderror
+</div>
 
 <br><br>
-<button type="submit">{{$submit_label}}</button>
-<button form="delete-form" {{ isset($habit) ? '' : 'hidden'}}>Archive Habit</button>
 </form>
+
+</div>
+
 
 
 <form id="delete-form" class="hidden" method="POST" action={{"/habits/$id"}}>

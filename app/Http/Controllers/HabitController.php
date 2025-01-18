@@ -34,7 +34,7 @@ class HabitController extends Controller{
             'id'    => 0,
             'name' => '',
             'frequency' => 1,
-            'daily_max' => 0,
+            'daily_max' => 1,
             'period' => Period::DAY
         ];
     

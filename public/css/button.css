@@ -1,5 +1,5 @@
 button{
-    width: 100%;
+    width: 30%;
 }
 
 button > a{
@@ -13,17 +13,24 @@ button > a{
 .btn-create{
     background-color: #90EE90;
 }
+.btn-delete{
+    background-color: #FFCCCB;
+}
 
 button.completed{
+    width: 100%;
     background-color : #90EE90;
 }
 button.noprogress{
+    width: 100%;
     background-color : #FFCCCB;
 }
 button.locked{
+    width: 100%;
     background-color : #ADD8E6;
 }
 button.progress{
+    width: 100%;
     background-color : #FFFFC5;
 }
 
