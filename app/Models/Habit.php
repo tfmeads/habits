@@ -21,6 +21,10 @@ class Habit extends Model{
     protected $fillable = ['period','frequency','daily_max','name','user_id'];
     protected $casts = ['period' => Period::class];
 
+    //eager load events
+    protected $with = ['events'];
+
+
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -73,15 +77,15 @@ class Habit extends Model{
         $end = $this->get_end_date($date);
 
         //echo "$start -> $end\n";
+        
 
         if($this->events->count() > 0){
-
             return $this->events->toQuery()
             ->where('logged_at', '>=', $start)
             ->where('logged_at', '<', $end)
             ->get();
-
         }
+
         return $this->events;
     }
 
