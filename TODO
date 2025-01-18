@@ -1,9 +1,10 @@
 Features TODO
 
+- Add laravel-debugbar package 
+- Integrate Intertia/Vue (used on Frodo)
 - Make email send automatically 
 - Mark items on home page that are on daily schedule
 - One off tasks - use like I use reminders for iOS
-- Integrate UI library
 - Calendar display that shows github style heatmap of habits done
 - Allow for un-archiving or permanently deleting archived habits
 - Tag system - allow lists to be filtered by tags (Music, Exercise, Chores etc.)

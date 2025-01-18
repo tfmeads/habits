@@ -5,6 +5,7 @@ $events = $habit->events()->get();
 <x-slot:heading>
 Manage Habit
 </x-slot:heading>
+<link rel="stylesheet" href="{{asset('css/button.css')}}">
 
 
 <h2>{{$habit['name']}}</h2> 

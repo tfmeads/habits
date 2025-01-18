@@ -1,0 +1,23 @@
+
+
+#main-wrapper{
+margin: auto;
+ min-width: 60%;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+}
+
+#current-day-wrapper{
+    margin: auto;
+ width:50%;
+ display: flex;
+ flex-direction: row;
+ align-items: baseline;
+ justify-content: space-around
+}
+
+ul{
+    padding-left: 0px;   
+    list-style-type: none;
+}

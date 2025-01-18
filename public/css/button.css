@@ -1,0 +1,30 @@
+button{
+    width: 100%;
+}
+
+button > a{
+    text-decoration:none; 
+    color: inherit;
+    font-size: medium;
+}
+.btn-change-day{
+    width: auto;
+}
+.btn-create{
+    background-color: #90EE90;
+}
+
+button.completed{
+    background-color : #90EE90;
+}
+button.noprogress{
+    background-color : #FFCCCB;
+}
+button.locked{
+    background-color : #ADD8E6;
+}
+button.progress{
+    background-color : #FFFFC5;
+}
+
+
