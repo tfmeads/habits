@@ -17,15 +17,34 @@ $diff_string = $target->diffForHumans($now, [
 if($diff_string == '0 seconds ago'){
     $diff_string = 'Today';
 }
-if($diff_string == '1 day ago'){
+else if($diff_string == '1 day ago'){
     $diff_string = 'Yesterday';
 }
-if($diff_string == '1 day from now'){
+else if($diff_string == '1 day from now'){
     $diff_string = 'Tomorrow';
 }
+else{
+    $arr = explode(' ',$diff_string);
+    $time_direction = $arr[2];
 
-if($diff_string == '2 days from now'){
-    $diff_string = 'Day after Tomorrow';
+    $isCurrentWeek = $target->isCurrentWeek();
+    $isLastWeek = $target->clone()->subWeek()->isCurrentWeek();
+    $isNextWeek = $target->clone()->addWeek()->isCurrentWeek();
+
+
+    if($isCurrentWeek || $isLastWeek || $isNextWeek){
+        $weekday = $target->format('l');
+
+        if($time_direction == 'ago'){
+            $modifier = $isCurrentWeek ? '' : 'Last ';
+        }
+
+        else{
+            $modifier = $isCurrentWeek ? 'This ' : 'Next ';
+        }
+
+        $diff_string =  "$modifier$weekday";
+    }
 }
 
 $day_label = "$diff_string ({$target->format('m/d')})";
