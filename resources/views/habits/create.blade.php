@@ -1,4 +1,4 @@
-<?
+<?php
 $id =  $habit['id'] == 0 ? '' : $habit['id'];
 $action = "/habits/$id";
 $method = $id ? 'PATCH' : 'POST';

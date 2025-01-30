@@ -1,4 +1,4 @@
-<?
+<?php
 ?>
 <x-homenav>
 <x-slot:heading>Dashboard</x-slot:heading>

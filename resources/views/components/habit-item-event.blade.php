@@ -1,4 +1,4 @@
-<?
+<?php
 $form_id = "log-habit-event-$habit->id";
 
 if(!isset($target_date)){

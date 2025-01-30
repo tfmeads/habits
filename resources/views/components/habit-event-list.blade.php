@@ -1,4 +1,4 @@
-<?
+<?php
 ?>
 <div style="display: flex; flex-direction: column; align-items : center;">
     <h3>{{ $title }}</h3>

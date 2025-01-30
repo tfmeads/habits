@@ -1,4 +1,4 @@
-<?
+<?php
 $dailies = $habits->where('period',\App\Enums\Period::DAY);
 $weeklies = $habits->where('period',\App\Enums\Period::WEEK);
 $monthlies = $habits->where('period',\App\Enums\Period::MONTH);

@@ -1,4 +1,4 @@
-<?
+<?php
 if(!isset($type)){ $type = 'info';}
 ?>
 <div style="display: flex; flex-direction: column; align-items : center;">

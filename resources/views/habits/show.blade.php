@@ -1,4 +1,4 @@
-<?
+<?php
 $events = $habit->events()->get();
 ?>
 <x-homenav>

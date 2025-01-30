@@ -1,4 +1,4 @@
-<?
+<?php
 $dailies = $habits->where('period',\App\Enums\Period::DAY);
 $name = Auth::user()->name;
 ?>

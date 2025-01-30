@@ -1,4 +1,4 @@
-<?
+<?php
 $actives = $actives->sortBy('period');
 $archives = $archives->sortBy('period');
 
